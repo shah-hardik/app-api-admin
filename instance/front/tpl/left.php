@@ -18,6 +18,12 @@
                     <li><a href="<?php l('users') ?>">Users List</a></li>
                 </ul>
             </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Post <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="<?php l('post') ?>">User's Post </a></li>
+                </ul>
+            </li>
             <li class=""><a href="<?php l('login?logout=1') ?>">Logout</a></li>
         </ul>
     </div>

@@ -211,7 +211,16 @@ function _level_auth_url($pages, $return_page) {
         _cg("url", $return_page);
     }
 }
+function _cprint($key, $value, $print, $doPrint = true) {
 
+    if ($key == $value) {
+        if ($doPrint) {
+            print $print;
+        } else {
+            return $print;
+        }
+    }
+}
 function back_trace() {
     $array = debug_backtrace();
     $output = 'Execution Backtrace:<br><ul>';

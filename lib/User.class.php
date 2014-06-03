@@ -132,8 +132,57 @@ class User {
         return $userName;
     }
 
-    public static function UsersList() {
-        return q("SELECT * FROM user");
+    public static function UsersList($id) {
+        if (empty($id)) {
+            $condition = "where 1=1 ";
+        } else {
+            $condition = "where id='{$id}'";
+        }
+        return q("SELECT * FROM user {$condition}");
+    }
+
+    public static function addUser($fields) {
+        // Escape array for sql hijacking prevention
+        $data = _escapeArray($fields);
+        $map = array();
+        $map['user_fname'] = 'first_name';
+        $map['user_lname'] = 'last_name';
+        $map['email'] = 'email';
+        $map['password'] = 'password';
+        $map['phone'] = 'phone_no';
+        $map['address'] = 'address';
+        $map['city'] = 'city';
+        $map['state'] = 'state';
+        $map['zipcode'] = 'zipcode';
+        $map['user_name'] = 'username';
+
+        $ds = _bindArray($data, $map);
+        return qi('user', $ds);
+    }
+
+    public static function editUser($fields, $id) {
+        // Escape array for sql hijacking prevention
+        $data = _escapeArray($fields);
+        $map = array();
+        $map['user_fname'] = 'first_name';
+        $map['user_lname'] = 'last_name';
+        $map['email'] = 'email';
+        $map['password'] = 'password';
+        $map['phone'] = 'phone_no';
+        $map['address'] = 'address';
+        $map['city'] = 'city';
+        $map['state'] = 'state';
+        $map['zipcode'] = 'zipcode';
+        $map['user_name'] = 'username';
+        
+        $ds = _bindArray($data, $map);
+        $condition = "id = " . $id;
+        return qu('user', $ds, $condition);
+    }
+
+    public static function deleteUser($id) {
+        $condition = "id =" . $id;
+        return qd('user', $condition);
     }
 
 }

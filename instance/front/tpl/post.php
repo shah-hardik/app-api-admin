@@ -3,8 +3,8 @@
         <nav class="navbar navbar-default " role="navigation">
             <div class="collapse navbar-collapse navbar-ex1-collapse  ">
                 <ul class="nav navbar-nav">
-                    <li class="<?php print $activeMenuList ?>"><a href="<?php print _U ?>users/list"><i class="glyphicon glyphicon-th-list"></i>&nbsp;List Users</a></li>
-		    <li class="<?php print $activeMenuAdd ?>"><a href="<?php print _U ?>users/add"><i class="glyphicon glyphicon-<?php print $addIcon?>"></i>&nbsp;<?php print $addLabel?></a></li>
+                    <li class="<?php print $activeMenuList ?>"><a href="<?php print _U ?>post/list"><i class="glyphicon glyphicon-th-list"></i>&nbsp;List Post</a></li>
+		    <li class="<?php print $activeMenuAdd ?>"><a href="<?php print _U ?>post/add"><i class="glyphicon glyphicon-<?php print $addIcon?>"></i>&nbsp;<?php print $addLabel?></a></li>
 		    <li class="disabled"><a href="#"><i class="glyphicon glyphicon-trash"></i>&nbsp;Delete User(s)</a></li>
                 </ul>
             </div>

@@ -1,6 +1,6 @@
 <script type="text/javascript">
     var delUrl = '';
-    function DeleteUser(url){
+    function DeletePost(url){
         delUrl = url;
         $("#myModal").modal("show");
     }
