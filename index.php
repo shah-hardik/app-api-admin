@@ -12,6 +12,11 @@
  * @version 1.0
  * @package app-api-admin
  * 
+ * mafiathepartygame.com
+   api
+   Chief1@#4
+ * 
+ * 
  */
 session_start();
 error_reporting(0);
