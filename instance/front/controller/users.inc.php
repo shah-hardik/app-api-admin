@@ -23,17 +23,42 @@ $city_val = "";
 $state_val = "";
 $zipcode_val = "";
 
-$zipcode_val = $view_data['zipcode'];
+
+
 if (isset($_REQUEST['fields']) && $_REQUEST['fields']['users_id'] == '') {
 
-    $data = User::addUser($_REQUEST[fields]);
-    if ($data != '') {
+//       $data_1 = User::GetProfilePicture(14);
+    //For Uploadin Profilr Picture
+    $filename = $_FILES['image']['tmp_name'];
+    $db_filename = mt_rand(0, 999999) . $_FILES['image']['name'];
+    $destination = _PATH . 'api/user_img/' . $db_filename;
+    $destination = str_replace('app-api-admin', 'app_api', $destination);
+    $destination = str_replace('api-admin', 'api', $destination);
+    $image = move_uploaded_file($filename, $destination);
+
+    //Inserting Row
+    $data_picture = qi('user_profile_picture', Array("picture" => $db_filename));
+    $data_user = User::addUser($_REQUEST[fields]);
+
+
+    if ($data_user != '' && $data_picture != '') {
         $greetings = "Users inserted successfully";
     } else {
         $error = "Unable to add Users";
     }
 }
 if (isset($_REQUEST['fields']) && $_REQUEST['fields']['users_id'] > 0) {
+
+
+    $filename = $_FILES['image']['tmp_name'];
+    $db_filename = mt_rand(0, 999999) . $_FILES['image']['name'];
+    $destination = _PATH . 'api/user_img/' . $db_filename;
+    $destination = str_replace('app-api-admin', 'app_api', $destination);
+    $destination = str_replace('api-admin', 'api', $destination);
+    $image = move_uploaded_file($filename, $destination);
+
+    //Inserting Row
+    $data_picture = qu('user_profile_picture', Array("picture" => $db_filename),"user_id=".$_REQUEST['fields']['users_id'] );
 
     $data = User::editUser($_REQUEST[fields], $_REQUEST['fields']['users_id']);
     if ($data != '') {
@@ -51,6 +76,7 @@ switch ($urlArgs[0]) {
         $activeMenuAdd = "active";
         if ($urlArgs[1] > 0) {
             $view_data = User::UsersList($urlArgs[1]);
+
             $user_fname = $view_data[0]['first_name'];
             $user_lname = $view_data[0]['last_name'];
             $user_name = $view_data[0]['username'];
@@ -61,6 +87,9 @@ switch ($urlArgs[0]) {
             $state_val = $view_data[0]['state'];
             $zipcode_val = $view_data[0]['zipcode'];
             $id_val = $urlArgs[1];
+            
+            $image_name=qs("SELECT * FROM user_profile_picture WHERE user_id = " .$urlArgs[1]);
+            $image=$image_name['picture'];
         }
         break;
     case "add":
@@ -77,7 +106,7 @@ switch ($urlArgs[0]) {
             $error = "Unable to delete User";
             $_SESSION['error_msg'] = $error;
         }
-       _R(lr('users/list'));
+        _R(lr('users/list'));
 
         break;
     default:

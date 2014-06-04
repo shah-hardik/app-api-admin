@@ -104,7 +104,7 @@
                         </br>
                         <div style="text-align:right;">
                             <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                            <button type="button" class="btn btn-primary" onclick="genericFun()">Yes</button>
+                            <button type="button" class="btn btn-primary"  onclick="genericFun()">Yes</button>
                         </div>
                     </div>
                 </div>

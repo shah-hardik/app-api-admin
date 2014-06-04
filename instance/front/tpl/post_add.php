@@ -31,7 +31,9 @@
                 <div class="form-group">
                     <label for="inputUser" class="col-lg-2 control-label">Select File</label>
                     <div class="col-lg-5">
-                        <input type="file"  name="image" id="image" value="<?php print $image; ?>" required>
+                        <input type="file"  name="image" id="image" <?php if (empty($image)): print "required"; endif; ?>>
+                        <input type="hidden" name="fields[image_name]" id="image_name" value="<?php print $image; ?>">
+                        <?php if (!empty($image)):?><div><img src="<?php print _MEDIA_URL . "img/" . $image; ?>" width="100"  /></div><?php print $image; endif;?>
                     </div>
                 </div>
                 <div class="form-group " >
@@ -41,13 +43,13 @@
                     </div>
                 </div>
                 <div class="form-group " >
-                    <label for="inputUser" class="col-lg-2 control-label">location_latitude</label>
+                    <label for="inputUser" class="col-lg-2 control-label">Location Latitude</label>
                     <div class="col-lg-5">
                         <input type="text" class="form-control" placeholder="Location Latitude" id="latitude"  name="fields[latitude]" value="<?php print $latitude ?>" required />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="inputUser" class="col-lg-2 control-label">location_longitude</label>
+                    <label for="inputUser" class="col-lg-2 control-label">Location Longitude</label>
                     <div class="col-lg-5">
                         <input type="text" class="form-control" name="fields[longitude]" id="longitude" value="<?php print $longitude; ?>" placeholder="Location Longitude" required>
                     </div>

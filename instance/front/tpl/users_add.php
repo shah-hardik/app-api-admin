@@ -2,7 +2,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">Add New Users</div>
         <div class="panel-body">
-            <form method="post" action="" class="form-horizontal" role="form">
+            <form method="post" action="" class="form-horizontal" role="form" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="inputUser" class="col-lg-2 control-label">First Name</label>
                     <div class="col-lg-5">
@@ -19,6 +19,20 @@
                     <label for="inputUser" class="col-lg-2 control-label">User Name</label>
                     <div class="col-lg-5">
                         <input type="text" class="form-control" name="fields[user_name]" id="user_name" value="<?php print $user_name; ?>" placeholder="User Name" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputUser" class="col-lg-2 control-label">Select File</label>
+                    <div class="col-lg-5">
+                        <input type="file"  name="image" id="image" <?php if (empty($image)): print "required";
+endif; ?>>
+                        <input type="hidden" name="fields[image_name]" id="image_name" value="<?php print $image; ?>">
+                        <?php
+                        if (!empty($image)): $image_ = _PATH . "api/user_img/" . $image;
+                            $destination = str_replace('app-api-admin', 'app_api', $image_);
+                            $destination = str_replace('api-admin', 'api', $image_);
+                            ?><div><img src="<?php print $destination; ?>" width="100"  /></div><?php print $image;
+                        endif; ?>
                     </div>
                 </div>
                 <div class="form-group " >

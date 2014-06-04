@@ -9,7 +9,6 @@
  * @package app-api-admin
  * 
  */
-
 $urlArgs = _cg("url_vars");
 $addIcon = "plus";
 $addLabel = "Add Posts";
@@ -23,26 +22,24 @@ $longitude = "";
 
 if (isset($_REQUEST['fields']) && $_REQUEST['fields']['users_id'] == '') {
 
-        $filename = $_FILES['image']['tmp_name'];
+    $filename = $_FILES['image']['tmp_name'];
 
-        if ($filename) {
-            $db_filename = mt_rand(0, 999999) . $_FILES['image']['name'];
-            $destination = _PATH . "instance/front/media/img/" . $db_filename;
-            $image = move_uploaded_file($filename, $destination);
-            $_REQUEST['image'] = $db_filename;
-        }
-        $ds = _bindArray($data, $map);
-        $data = qi('post', Array("user_id"=>$_REQUEST['fields']['user'],
-            "type"=>$_REQUEST['fields']['post_type'],
-            "text"=>$_REQUEST['fields']['text'],
-            "media"=>$_REQUEST['fields']['media'],
-            "thumbnail"=>$_REQUEST['image'],
-            "location_latitude"=>$_REQUEST['fields']['latitude'],
-            "location_longitude"=>$_REQUEST['fields']['longitude'],
-                ));
-    
-    
-    
+    $db_filename = mt_rand(0, 999999) . $_FILES['image']['name'];
+    $destination = _PATH . "instance/front/media/img/" . $db_filename;
+    $image = move_uploaded_file($filename, $destination);
+
+
+    $data = qi('post', Array("user_id" => $_REQUEST['fields']['user'],
+        "type" => $_REQUEST['fields']['post_type'],
+        "text" => $_REQUEST['fields']['text'],
+        "media" => $_REQUEST['fields']['media'],
+        "thumbnail" => $db_filename,
+        "location_latitude" => $_REQUEST['fields']['latitude'],
+        "location_longitude" => $_REQUEST['fields']['longitude'],
+    ));
+
+
+
     if ($data != '') {
         $greetings = "Post inserted successfully";
     } else {
@@ -51,7 +48,27 @@ if (isset($_REQUEST['fields']) && $_REQUEST['fields']['users_id'] == '') {
 }
 if (isset($_REQUEST['fields']) && $_REQUEST['fields']['users_id'] > 0) {
 
-    $data = Post::editPost($_REQUEST[fields], $_REQUEST['fields']['users_id']);
+    $filename = $_FILES['image']['tmp_name'];
+
+    if (empty($filename)) {
+        $_REQUEST['image'] = $_REQUEST['fields']['image_name'];
+    } else {
+        if ($filename) {
+            $db_filename = mt_rand(0, 999999) . $_FILES['image']['name'];
+            $destination = _PATH . "instance/front/media/img/" . $db_filename;
+            $image = move_uploaded_file($filename, $destination);
+            $_REQUEST['image'] = $db_filename;
+        }
+    }
+    $data = qu('post', Array("user_id" => $_REQUEST['fields']['user'],
+        "type" => $_REQUEST['fields']['post_type'],
+        "text" => $_REQUEST['fields']['text'],
+        "media" => $_REQUEST['fields']['media'],
+        "thumbnail" => $_REQUEST['image'],
+        "location_latitude" => $_REQUEST['fields']['latitude'],
+        "location_longitude" => $_REQUEST['fields']['longitude'],
+            ), "id = '{$_REQUEST['fields']['users_id']}'");
+
     if ($data != '') {
         $greetings = "Post updated successfully";
     } else {

@@ -2,7 +2,7 @@
 
     <div class="panel panel-default ">
         <div class="panel-heading">
-            <div style=""><b>List of Users</b></div>
+            <div style=""><b>List of Posts</b></div>
             <div class="clearfix"></div>
         </div>
         <div class="panel-body">
@@ -17,7 +17,7 @@
                             <th>User Name</th>
                             <th>Type of Post</th>
                             <th>Text</th>
-                            <th>Thumbnail</th>
+                            <th>Post</th>
                             <th>No of like</th>
                             <th>No of Comments</th>
                             <th>Media</th>
@@ -51,7 +51,7 @@
                     </tbody>
                 </table>
             <?php else: ?>
-                <div>No User Available</div>
+                <div>No Post Available</div>
 <?php endif; ?>
         </div>
     </div>

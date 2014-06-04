@@ -24,22 +24,6 @@ class Post {
     }
 
 
-    public static function editPost($fields, $id) {
-        // Escape array for sql hijacking prevention
-        $data = _escapeArray($fields);
-        $map = array();
-
-        $map['post_type'] = 'type';
-        $map['text'] = 'text';
-        $map['media'] = 'media';
-        $map['image'] = 'thumbnail';
-        $map['latitude'] = 'location_latitude';
-        $map['longitude'] = 'location_longitude';
-
-        $ds = _bindArray($data, $map);
-        $condition = "id = " . $id;
-        return qu('post', $ds, $condition);
-    }
 
     public static function deletePost($id) {
         $condition = "id =" . $id;

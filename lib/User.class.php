@@ -174,7 +174,7 @@ class User {
         $map['state'] = 'state';
         $map['zipcode'] = 'zipcode';
         $map['user_name'] = 'username';
-        
+
         $ds = _bindArray($data, $map);
         $condition = "id = " . $id;
         return qu('user', $ds, $condition);
@@ -185,6 +185,17 @@ class User {
         return qd('user', $condition);
     }
 
-}
+    public static function GetProfilePicture($userId) {
+        $res = qs("SELECT * FROM user_profile_picture WHERE user_id = " . $userId);
+        if (!empty($res)) {
+            $img_path = _U . 'user_img/' . $res['picture'];
+            $img_path = str_replace('app-api-admin', 'app_api', $img_path);
+            $img_path = str_replace('api-admin', 'api', $img_path);
+        } else {
+            $img_path = 'Not Available';
+        }
+        return $img_path;
+    }
 
+}
 ?>
