@@ -27,7 +27,6 @@ $zipcode_val = "";
 
 if (isset($_REQUEST['fields']) && $_REQUEST['fields']['users_id'] == '') {
 
-//       $data_1 = User::GetProfilePicture(14);
     //For Uploadin Profilr Picture
     $filename = $_FILES['image']['tmp_name'];
     $db_filename = mt_rand(0, 999999) . $_FILES['image']['name'];
@@ -49,19 +48,23 @@ if (isset($_REQUEST['fields']) && $_REQUEST['fields']['users_id'] == '') {
 }
 if (isset($_REQUEST['fields']) && $_REQUEST['fields']['users_id'] > 0) {
 
+//For Uploadin Profilr Picture
 
     $filename = $_FILES['image']['tmp_name'];
-    $db_filename = mt_rand(0, 999999) . $_FILES['image']['name'];
-    $destination = _PATH . 'api/user_img/' . $db_filename;
-    $destination = str_replace('app-api-admin', 'app_api', $destination);
-    $destination = str_replace('api-admin', 'api', $destination);
-    $image = move_uploaded_file($filename, $destination);
-
-    //Inserting Row
-    $data_picture = qu('user_profile_picture', Array("picture" => $db_filename),"user_id=".$_REQUEST['fields']['users_id'] );
+    if (empty($filename)) {
+        $db_filename = $_REQUEST['fields']['image_name'];
+    } else {
+        $db_filename = mt_rand(0, 999999) . $_FILES['image']['name'];
+        $destination = _PATH . 'api/user_img/' . $db_filename;
+        $destination = str_replace('app-api-admin', 'app_api', $destination);
+        $destination = str_replace('api-admin', 'api', $destination);
+        $image = move_uploaded_file($filename, $destination);
+    }
+    //updating Row
+    $data_picture = qu('user_profile_picture', Array("picture" => $db_filename), "user_id=" . $_REQUEST['fields']['users_id']);
 
     $data = User::editUser($_REQUEST[fields], $_REQUEST['fields']['users_id']);
-    if ($data != '') {
+    if ($data != '' && $data_picture != '') {
         $greetings = "Users updated successfully";
     } else {
         $error = "Unable to Update Users";
@@ -87,9 +90,10 @@ switch ($urlArgs[0]) {
             $state_val = $view_data[0]['state'];
             $zipcode_val = $view_data[0]['zipcode'];
             $id_val = $urlArgs[1];
-            
-            $image_name=qs("SELECT * FROM user_profile_picture WHERE user_id = " .$urlArgs[1]);
-            $image=$image_name['picture'];
+
+            $image_path = User::GetProfilePicture($urlArgs[1]);
+            $image_name = qs("SELECT * FROM user_profile_picture WHERE user_id = " . $urlArgs[1]);
+            $image = $image_name['picture'];
         }
         break;
     case "add":

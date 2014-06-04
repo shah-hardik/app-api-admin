@@ -28,10 +28,8 @@
 endif; ?>>
                         <input type="hidden" name="fields[image_name]" id="image_name" value="<?php print $image; ?>">
                         <?php
-                        if (!empty($image)): $image_ = _PATH . "api/user_img/" . $image;
-                            $destination = str_replace('app-api-admin', 'app_api', $image_);
-                            $destination = str_replace('api-admin', 'api', $image_);
-                            ?><div><img src="<?php print $destination; ?>" width="100"  /></div><?php print $image;
+                        if (!empty($image)): 
+                            ?><div><img src="<?php print $image_path; ?>" width="100"/></div><?php print $image;
                         endif; ?>
                     </div>
                 </div>
@@ -44,7 +42,7 @@ endif; ?>>
                 <div class="form-group " >
                     <label for="inputUser" class="col-lg-2 control-label">Password</label>
                     <div class="col-lg-5">
-                        <input type="password" class="form-control"  id="password" autocomplete="off" name="fields[password]" placeholder="Password"  />
+                        <input type="password" class="form-control"  id="password" autocomplete="off" name="fields[password]" placeholder="Password" required />
                     </div>
                 </div>
                 <div class="form-group">

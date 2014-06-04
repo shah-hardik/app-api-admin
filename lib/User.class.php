@@ -188,11 +188,11 @@ class User {
     public static function GetProfilePicture($userId) {
         $res = qs("SELECT * FROM user_profile_picture WHERE user_id = " . $userId);
         if (!empty($res)) {
-            $img_path = _U . 'user_img/' . $res['picture'];
+            $img_path = _U . 'api/user_img/' . $res['picture'];
             $img_path = str_replace('app-api-admin', 'app_api', $img_path);
             $img_path = str_replace('api-admin', 'api', $img_path);
         } else {
-            $img_path = 'Not Available';
+            $img_path = '';
         }
         return $img_path;
     }

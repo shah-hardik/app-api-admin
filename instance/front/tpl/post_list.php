@@ -35,7 +35,8 @@
                                     ?></td>
                                 <td><?php print $each_post['type']; ?></td>
                                 <td><?php print $each_post['text']; ?></td>
-                                <td><img src="<?php print _MEDIA_URL . "img/" . $each_post['thumbnail']; ?>" width="100"  />
+                                <td>
+                                    <img src="<?php print _MEDIA_URL . "img/" . $each_post['thumbnail']; ?>" width="100"  />
                                 </td>
                                 <td><?php print $each_post['likes_count']; ?></td>
                                 <td><?php print $each_post['comments_count']; ?></td>

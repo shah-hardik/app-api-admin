@@ -51,20 +51,19 @@ if (isset($_REQUEST['fields']) && $_REQUEST['fields']['users_id'] > 0) {
     $filename = $_FILES['image']['tmp_name'];
 
     if (empty($filename)) {
-        $_REQUEST['image'] = $_REQUEST['fields']['image_name'];
+        $db_filename = $_REQUEST['fields']['image_name'];
     } else {
-        if ($filename) {
+        
             $db_filename = mt_rand(0, 999999) . $_FILES['image']['name'];
             $destination = _PATH . "instance/front/media/img/" . $db_filename;
             $image = move_uploaded_file($filename, $destination);
-            $_REQUEST['image'] = $db_filename;
-        }
+        
     }
     $data = qu('post', Array("user_id" => $_REQUEST['fields']['user'],
         "type" => $_REQUEST['fields']['post_type'],
         "text" => $_REQUEST['fields']['text'],
         "media" => $_REQUEST['fields']['media'],
-        "thumbnail" => $_REQUEST['image'],
+        "thumbnail" => $db_filename,
         "location_latitude" => $_REQUEST['fields']['latitude'],
         "location_longitude" => $_REQUEST['fields']['longitude'],
             ), "id = '{$_REQUEST['fields']['users_id']}'");

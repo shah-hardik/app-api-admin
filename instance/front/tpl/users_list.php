@@ -18,6 +18,7 @@
                             <th>Last Name</th>
                             <th>Email</th>
                             <th>User Name</th>
+                            <th>Profile Picture</th>
                             <th>Address</th>
                             <th>City</th>
                             <th>State</th>
@@ -35,9 +36,14 @@
                                 <td><?php print $each_user['last_name']; ?></td>
                                 <td><?php print $each_user['email']; ?></td>
                                 <td><?php print $each_user['username']; ?></td>
+                                <td>
+                                    <?php
+                                    $image_path = User::GetProfilePicture($each_user['id']);
+                                    ?>
+                                    <img src="<?php print $image_path; ?>" width="100"  />
                                 <td><?php print $each_user['address']; ?></td>
                                 <td><?php print $each_user['city']; ?></td>
-                                                                <td><?php print $each_user['state']; ?></td>
+                                <td><?php print $each_user['state']; ?></td>
 
                                 <td><?php print $each_user['phone_no']; ?></td>
                                 <td><?php print $each_user['zipcode']; ?></td>
