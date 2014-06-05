@@ -64,6 +64,7 @@ if (isset($_REQUEST['fields']) && $_REQUEST['fields']['users_id'] > 0) {
     $data_picture = qu('user_profile_picture', Array("picture" => $db_filename), "user_id=" . $_REQUEST['fields']['users_id']);
 
     $data = User::editUser($_REQUEST[fields], $_REQUEST['fields']['users_id']);
+
     if ($data != '' && $data_picture != '') {
         $greetings = "Users updated successfully";
     } else {

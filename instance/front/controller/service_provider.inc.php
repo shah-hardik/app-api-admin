@@ -35,7 +35,6 @@ if (isset($_REQUEST['fields']) && $_REQUEST['fields']['users_id'] > 0) {
     } else {
         $error = "Unable to Update Service Provider";
     }
-    _R(lr('service_provider/list'));
 }
 
 switch ($urlArgs[0]) {

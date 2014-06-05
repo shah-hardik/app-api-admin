@@ -16,6 +16,10 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Users <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="<?php l('users') ?>">Users List</a></li>
+                    <li><a href="<?php l('alerts') ?>">Alert</a></li>
+                    <li><a href="<?php l('profile') ?>">Profile</a></li>
+                    <li><a href="<?php l('states') ?>">States</a></li>
+
                 </ul>
             </li>
             <li class="dropdown">
@@ -24,15 +28,21 @@
                     <li><a href="<?php l('post') ?>">User's Post </a></li>
                 </ul>
             </li>
-             <li class="dropdown">
+            <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Service Provider <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="<?php l('service_provider') ?>">Service Provider</a></li>
                 </ul>
             </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Neighborhood <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="<?php l('neighborhood') ?>">Neighborhood List</a></li>
+                </ul>
+            </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-                        <li ><a href="<?php l('login?logout=1') ?>">Logout <i class="glyphicon glyphicon-off"></i></a></li>
+            <li><a href="<?php l('login?logout=1') ?>">Logout <i class="glyphicon glyphicon-off"></i></a></li>
 
         </ul>
     </div>
