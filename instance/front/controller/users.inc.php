@@ -24,28 +24,51 @@ $state_val = "";
 $zipcode_val = "";
 
 
-
+//Insert
 if (isset($_REQUEST['fields']) && $_REQUEST['fields']['users_id'] == '') {
 
     //For Uploadin Profilr Picture
     $filename = $_FILES['image']['tmp_name'];
     $db_filename = mt_rand(0, 999999) . $_FILES['image']['name'];
-    $destination = _PATH . 'api/user_img/' . $db_filename;
+    $destination = _PATH . 'user_img/' . $db_filename;
     $destination = str_replace('app-api-admin', 'app_api', $destination);
     $destination = str_replace('api-admin', 'api', $destination);
     $image = move_uploaded_file($filename, $destination);
+    $user_ = User::UsersList();
+    foreach ($user_ as $each_user):
 
-    //Inserting Row
-    $data_picture = qi('user_profile_picture', Array("picture" => $db_filename));
-    $data_user = User::addUser($_REQUEST[fields]);
+        if (strtolower($each_user['username']) == strtolower($_REQUEST['fields']['user_name'])) {
+            $username_exits = 1;
+        }
+        if (strtolower($each_user['email']) == strtolower($_REQUEST['fields']['email'])) {
+            $email_exits = 1;
+        }
+    endforeach;
+
+    if (empty($username_exits) && empty($email_exits)) {
+        //Inserting Row
+
+        $data_user = User::addUser($_REQUEST[fields]);
+
+        $data_picture = qi('user_profile_picture', Array("email" => $_REQUEST['fields']['email'],
+            "picture" => $db_filename));
 
 
-    if ($data_user != '' && $data_picture != '') {
-        $greetings = "Users inserted successfully";
+        if ($data_user != '' && $data_picture != '') {
+            $greetings = "Users inserted successfully";
+        } else {
+            $error = "Unable to add Users";
+        }
     } else {
-        $error = "Unable to add Users";
+        if (!empty($username_exits)) {
+            $error = "Someone already has that username. Try another!! ";
+        } else if (!empty($email_exits)) {
+            $error = "Someone already has that Email. Try another!! ";
+        }
     }
 }
+
+//Update
 if (isset($_REQUEST['fields']) && $_REQUEST['fields']['users_id'] > 0) {
 
 //For Uploadin Profilr Picture
@@ -55,20 +78,41 @@ if (isset($_REQUEST['fields']) && $_REQUEST['fields']['users_id'] > 0) {
         $db_filename = $_REQUEST['fields']['image_name'];
     } else {
         $db_filename = mt_rand(0, 999999) . $_FILES['image']['name'];
-        $destination = _PATH . 'api/user_img/' . $db_filename;
+        $destination = _PATH . 'user_img/' . $db_filename;
         $destination = str_replace('app-api-admin', 'app_api', $destination);
         $destination = str_replace('api-admin', 'api', $destination);
         $image = move_uploaded_file($filename, $destination);
     }
-    //updating Row
-    $data_picture = qu('user_profile_picture', Array("picture" => $db_filename), "user_id=" . $_REQUEST['fields']['users_id']);
 
-    $data = User::editUser($_REQUEST[fields], $_REQUEST['fields']['users_id']);
+    $user_ = User::UsersList();
+    foreach ($user_ as $each_user):
 
-    if ($data != '' && $data_picture != '') {
-        $greetings = "Users updated successfully";
+        if ($each_user['id'] != $_REQUEST['fields']['users_id']) {
+            if (strtolower($each_user['username']) == strtolower($_REQUEST['fields']['user_name'])) {
+                $username_exits = 1;
+            }
+            if (strtolower($each_user['email']) == strtolower($_REQUEST['fields']['email'])) {
+                $email_exits = 1;
+            }
+        }
+    endforeach;
+
+    if (empty($username_exits) && empty($email_exits)) {
+        //updating Row
+
+        $data = User::editUser($_REQUEST[fields], $_REQUEST['fields']['users_id']);
+        $data_picture = qu('user_profile_picture', Array( "picture" => $db_filename), "email= '{$_REQUEST['fields']['email']}' ");
+        if ($data != '' && $data_picture != '') {
+            $greetings = "Users updated successfully";
+        } else {
+            $error = "Unable to Update Users";
+        }
     } else {
-        $error = "Unable to Update Users";
+        if (!empty($username_exits)) {
+            $error = "Someone already has that username. Try another!! ";
+        } else if (!empty($email_exits)) {
+            $error = "Someone already has that Email. Try another!! ";
+        }
     }
 }
 
@@ -92,9 +136,9 @@ switch ($urlArgs[0]) {
             $zipcode_val = $view_data[0]['zipcode'];
             $id_val = $urlArgs[1];
 
-            $image_path = User::GetProfilePicture($urlArgs[1]);
-            $image_name = qs("SELECT * FROM user_profile_picture WHERE user_id = " . $urlArgs[1]);
-            $image = $image_name['picture'];
+            $image_path = User::GetProfilePicture($view_data[0]['email']);
+            $image_name = qs("SELECT * FROM user_profile_picture WHERE email ='{$view_data[0]['email']}'");
+            $image_ = $image_name['picture'];
         }
         break;
     case "add":

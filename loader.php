@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Loader file.
  * Includes libraries

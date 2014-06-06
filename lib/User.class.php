@@ -140,6 +140,7 @@ class User {
         }
         return q("SELECT * FROM user {$condition}");
     }
+   
 
     public static function addUser($fields) {
         // Escape array for sql hijacking prevention
@@ -166,7 +167,7 @@ class User {
         $map = array();
         $map['user_fname'] = 'first_name';
         $map['user_lname'] = 'last_name';
-        $map['email'] = 'email';
+//        $map['email'] = 'email';
         $map['password'] = 'password';
         $map['phone'] = 'phone_no';
         $map['address'] = 'address';
@@ -185,10 +186,10 @@ class User {
         return qd('user', $condition);
     }
 
-    public static function GetProfilePicture($userId) {
-        $res = qs("SELECT * FROM user_profile_picture WHERE user_id = " . $userId);
+    public static function GetProfilePicture($userEmail) {
+        $res = qs("SELECT * FROM user_profile_picture WHERE email = '{$userEmail}'");
         if (!empty($res)) {
-            $img_path = _U . 'api/user_img/' . $res['picture'];
+            $img_path = _U . 'user_img/' . $res['picture'];
             $img_path = str_replace('app-api-admin', 'app_api', $img_path);
             $img_path = str_replace('api-admin', 'api', $img_path);
         } else {
@@ -198,4 +199,5 @@ class User {
     }
 
 }
+
 ?>

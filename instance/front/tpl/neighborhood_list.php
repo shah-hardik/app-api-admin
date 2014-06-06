@@ -15,6 +15,7 @@
                         <tr>
                             <th>#</th>
                             <th>Name</th>
+                            <th>User</th>
                             <th>Location</th>
                             <th>Block User(Y/N)</th>
                             <th>Location Latitude</th>
@@ -27,6 +28,8 @@
                         <?php foreach ($neighborhood as $each_data): ?>
                             <tr>
                                 <td><?php print $cr; ?></td>
+                                <td><?php print $each_data['name']; ?></td>
+
                                 <td><?php
                                     $neighborhood_has_user = qs("SELECT * FROM neighborhood_has_user where neighborhood_id='{$each_data['id']}'");
                                     $user = qs("SELECT * FROM user where id='{$neighborhood_has_user['user_id']}'");

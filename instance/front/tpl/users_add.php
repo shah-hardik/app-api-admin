@@ -24,21 +24,28 @@
                 <div class="form-group">
                     <label for="inputUser" class="col-lg-2 control-label">Select File</label>
                     <div class="col-lg-5">
-                        <input type="file"  name="image" id="image" <?php if (empty($image)): print "required";
-endif; ?>>
-                        <input type="hidden" name="fields[image_name]" id="image_name" value="<?php print $image; ?>">
+                        <input type="file"  name="image" id="image" <?php
+                        if (empty($image_)): print "required";
+                        endif;
+                        ?>>
+                        <input type="hidden" name="fields[image_name]" id="image_name" value="<?php print $image_; ?>">
                         <?php
-                        if (!empty($image)): 
-                            ?><div><img src="<?php print $image_path; ?>" width="100"/></div><?php print $image;
-                        endif; ?>
+                        if (!empty($image_)):
+                            ?><div><img src="<?php print $image_path; ?>" width="100"/></div><?php
+                            print $image_;
+                        endif;
+                        ?>
                     </div>
                 </div>
-                <div class="form-group " >
-                    <label for="inputUser" class="col-lg-2 control-label">Email</label>
-                    <div class="col-lg-5">
-                        <input  type="email" class="form-control"  placeholder="Email (admin@admin.com)" id="email" value="<?php print $email ?>" name="fields[email]" required />
-                    </div>
-                </div>
+               
+                    <div class="form-group  <?php if (!empty($email)): print "hide"; endif; ?>" 
+>
+                        <label for="inputUser" class="col-lg-2 control-label">Email</label>
+                        <div class="col-lg-5">
+                            <input  type="email" class="form-control"  placeholder="Email (admin@admin.com)" id="email" value="<?php print $email ?>" name="fields[email]" required />
+                        </div>
+                    </div>                   
+
                 <div class="form-group " >
                     <label for="inputUser" class="col-lg-2 control-label">Password</label>
                     <div class="col-lg-5">

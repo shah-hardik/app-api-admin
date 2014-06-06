@@ -38,7 +38,7 @@
                                 <td><?php print $each_user['username']; ?></td>
                                 <td>
                                     <?php
-                                    $image_path = User::GetProfilePicture($each_user['id']);
+                                    $image_path = User::GetProfilePicture($each_user['email']);
                                     ?>
                                     <img src="<?php print $image_path; ?>" width="100"  />
                                 <td><?php print $each_user['address']; ?></td>

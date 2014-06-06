@@ -1,6 +1,6 @@
 <div class="addAffiliates actionItem">
     <div class="panel panel-default">
-        <div class="panel-heading">Add New Neighborhood</div>
+        <div class="panel-heading">Edit New Neighborhood</div>
         <div class="panel-body">
             <form method="post" action="" class="form-horizontal" role="form">
                 <div class="form-group">
