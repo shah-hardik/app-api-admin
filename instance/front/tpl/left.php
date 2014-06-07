@@ -26,18 +26,25 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Post <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="<?php l('post') ?>">User's Post </a></li>
+                    <li><a href="<?php l('post_like') ?>">Post like </a></li>
+                    <li><a href="<?php l('post_comment') ?>">Post Comment</a></li>
+
+
                 </ul>
             </li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Service Provider <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="<?php l('service_provider') ?>">Service Provider</a></li>
+                    <li><a href="<?php l('service_provider_cat') ?>">Service Provider Category</a></li>
                 </ul>
             </li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Neighborhood <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="<?php l('neighborhood') ?>">Neighborhood List</a></li>
+                    <li><a href="<?php l('neighborhood_invite') ?>">Neighborhood Invite</a></li>
+
                 </ul>
             </li>
         </ul>

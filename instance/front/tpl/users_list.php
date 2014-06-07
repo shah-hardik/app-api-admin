@@ -19,6 +19,7 @@
                             <th>Email</th>
                             <th>User Name</th>
                             <th>Profile Picture</th>
+                            <th>Service Provider</th>
                             <th>Address</th>
                             <th>City</th>
                             <th>State</th>
@@ -41,6 +42,14 @@
                                     $image_path = User::GetProfilePicture($each_user['email']);
                                     ?>
                                     <img src="<?php print $image_path; ?>" width="100"  />
+                              </td>
+                                <td><?php
+                                 $service = qs("select * from user_has_service_provider where user_id = '{$each_user['id']}'");
+                                    $service_provider = qs("select * from service_provider where id = '{$service['service_provider_id']}'");
+
+                                    print $service_provider['name'];?></td>
+                                <td><?php
+                                print $each_user['address']; ?></td>
                                 <td><?php print $each_user['address']; ?></td>
                                 <td><?php print $each_user['city']; ?></td>
                                 <td><?php print $each_user['state']; ?></td>

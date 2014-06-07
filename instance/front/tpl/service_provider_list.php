@@ -15,6 +15,7 @@
                         <tr>
                             <th>#</th>
                             <th>Name</th>
+                            <th>Category</th>
                             <th>Location Latitude</th>
                             <th>Location Longitude</th>
                             <th>Action</th>
@@ -26,6 +27,13 @@
                             <tr>
                                 <td><?php print $cr; ?></td>
                                 <td><?php print $each_data['name']; ?></td>
+                                <td><?php
+                                    $service = qs("select * from service_provider_has_service_provider_category where service_provider_id = '{$each_data['id']}'");
+                                    $category = qs("select * from service_provider_category where id = '{$service['service_provider_category_id']}'");
+
+                                    print $category['name'];
+                                    ?></td>
+
                                 <td><?php print $each_data['location_latitude']; ?></td>
                                 <td><?php print $each_data['location_longitude']; ?></td>
                                 <td>
@@ -34,12 +42,13 @@
                                 </td>
                             </tr>
                             <?php $cr++; ?>    
-                        <?php endforeach; ?>
+    <?php endforeach; ?>
                     </tbody>
                 </table>
             <?php else: ?>
                 <div>No Service Provider Available</div>
-            <?php endif; ?>
+<?php endif; ?>
         </div>
     </div>
 </div>
+

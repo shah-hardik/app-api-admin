@@ -5,7 +5,7 @@
                 <ul class="nav navbar-nav">
                     <li class="<?php print $activeMenuList ?>"><a href="<?php print _U ?>post/list"><i class="glyphicon glyphicon-th-list"></i>&nbsp;List Post</a></li>
 		    <li class="<?php print $activeMenuAdd ?>"><a href="<?php print _U ?>post/add"><i class="glyphicon glyphicon-<?php print $addIcon?>"></i>&nbsp;<?php print $addLabel?></a></li>
-		    <li class="disabled"><a href="#"><i class="glyphicon glyphicon-trash"></i>&nbsp;Delete User(s)</a></li>
+		    <li class="disabled"><a href="#"><i class="glyphicon glyphicon-trash"></i>&nbsp;Delete Post(s)</a></li>
                 </ul>
             </div>
         </nav>

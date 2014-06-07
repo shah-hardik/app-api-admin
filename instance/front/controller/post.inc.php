@@ -114,7 +114,7 @@ switch ($urlArgs[0]) {
         $activeMenuList = "active";
 }
 
-$users = Post::postList();
+$post = Post::postList();
 
 $jsInclude = "post.js.php";
 _cg("page_title", "Post");

@@ -8,7 +8,7 @@
         <div class="panel-body">
             <?php
             $cr = 1;
-            if (!empty($users)):
+            if (!empty($post)):
                 ?>
                 <table class="table table-hover" >
                     <thead>
@@ -26,7 +26,7 @@
                         </tr>
                     </thead>
                     <tbody id="">
-                        <?php foreach ($users as $each_post): ?>
+                        <?php foreach ($post as $each_post): ?>
                             <tr>
                                 <td><?php print $cr; ?></td>
                                 <td><?php
