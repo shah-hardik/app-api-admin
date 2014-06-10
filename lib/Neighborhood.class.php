@@ -15,13 +15,26 @@ class Neighborhood {
 
     public static function neighborhoodList($id) {
         if (empty($id)) {
-            $condition = "where 1=1 ";
+//            $condition = "where 1=1 ";
         } else {
             $condition = "where id='{$id}'";
         }
         return q("SELECT * FROM neighborhood {$condition}");
     }
 
+    public static function addNeighborhood($fields) {
+        // Escape array for sql hijacking prevention
+        $data = _escapeArray($fields);
+        $map = array();
+        $map['name'] = 'name';
+        $map['location'] = 'location';
+        $map['latitude'] = 'location_latitude';
+        $map['longitude'] = 'location_longitude';
+
+        $ds = _bindArray($data, $map);
+        return qi('neighborhood', $ds);
+    }
+ 
     public static function editNeighborhood($fields, $id) {
         // Escape array for sql hijacking prevention
         $data = _escapeArray($fields);

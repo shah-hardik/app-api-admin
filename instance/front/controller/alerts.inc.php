@@ -10,11 +10,11 @@
  * 
  */
 $urlArgs = _cg("url_vars");
-$addIcon = "plus";
-$addLabel = "Add Alerts";
-
-$alert = "";
-$type = "";
+//$addIcon = "plus";
+//$addLabel = "Add Alerts";
+//
+//$alert = "";
+//$type = "";
 
 
 if (isset($_REQUEST['fields']) && $_REQUEST['fields']['users_id'] == '') {
@@ -50,10 +50,10 @@ switch ($urlArgs[0]) {
             $id_val = $urlArgs[1];
         }
         break;
-    case "add":
-        $subTpl = "alerts_add.php";
-        $activeMenuAdd = "active";
-        break;
+//    case "add":
+//        $subTpl = "alerts_add.php";
+//        $activeMenuAdd = "active";
+//        break;
 
     case "delete":
         $delete_data = Alerts::deleteAlerts($urlArgs[1]);

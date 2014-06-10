@@ -18,19 +18,24 @@ $latitude = "";
 $longitude = "";
 
 
-if (isset($_REQUEST['fields']) && $_REQUEST['fields']['users_id'] == '') {
+if (isset($_REQUEST['fields']) && $_REQUEST['fields']['service_id'] == '') {
 
     $data = Service::addServiceProvider($_REQUEST[fields]);
     if ($data != '') {
+        $service_provider_id = qs("select * from service_provider  ORDER BY id DESC limit 0,1");
+        qi('service_provider_has_service_provider_category', Array("service_provider_id" => $service_provider_id['id'], 'service_provider_category_id' => $_REQUEST['fields']['service_category']));
+
         $greetings = "Service Provider inserted successfully";
     } else {
         $error = "Unable to add Service Provider";
     }
 }
-if (isset($_REQUEST['fields']) && $_REQUEST['fields']['users_id'] > 0) {
+if (isset($_REQUEST['fields']) && $_REQUEST['fields']['service_id'] > 0) {
 
-    $data = Service::editServiceProvider($_REQUEST[fields], $_REQUEST['fields']['users_id']);
+    $data = Service::editServiceProvider($_REQUEST[fields], $_REQUEST['fields']['service_id']);
     if ($data != '') {
+        qu('service_provider_has_service_provider_category', Array("service_provider_category_id" => $_REQUEST['fields']['service_category']), "service_provider_id= '{$_REQUEST['fields']['service_id']}'");
+
         $greetings = "Service Provider updated successfully";
     } else {
         $error = "Unable to Update Service Provider";
@@ -49,6 +54,9 @@ switch ($urlArgs[0]) {
             $latitude = $view_data[0]['location_latitude'];
             $longitude = $view_data[0]['location_longitude'];
             $id_val = $urlArgs[1];
+
+            $service_provider_category = qs("select * from service_provider_has_service_provider_category where service_provider_id= $urlArgs[1]");
+            $service_provider_category_id = $service_provider_category['service_provider_category_id'];
         }
         break;
     case "add":
@@ -56,6 +64,9 @@ switch ($urlArgs[0]) {
         $activeMenuAdd = "active";
         break;
     case "delete":
+        $condition = "service_provider_id =" . $urlArgs[1];
+        qd('service_provider_has_service_provider_category', $condition);
+        
         $delete_data = Service::deleteServiceProvider($urlArgs[1]);
 
         if ($delete_data) {

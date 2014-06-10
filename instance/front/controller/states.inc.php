@@ -10,13 +10,13 @@
  * 
  */
 $urlArgs = _cg("url_vars");
-$addIcon = "plus";
-$addLabel = "Add States";
-
-$posts_count = "";
-$neighborhoods_count = "";
-$neighbors_count = "";
-$lists_count = "";
+//$addIcon = "plus";
+//$addLabel = "Add States";
+//
+//$posts_count = "";
+//$neighborhoods_count = "";
+//$neighbors_count = "";
+//$lists_count = "";
 
 
 if (isset($_REQUEST['fields']) && $_REQUEST['fields']['users_id'] == '') {
@@ -53,9 +53,9 @@ switch ($urlArgs[0]) {
             $id_val = $urlArgs[1];
         }
         break;
-    case "add":
-        $subTpl = "states_add.php";
-        $activeMenuAdd = "active";
+//    case "add":
+//        $subTpl = "states_add.php";
+//        $activeMenuAdd = "active";
         break;
     case "delete":
         $delete_data = States::deleteState($urlArgs[1]);

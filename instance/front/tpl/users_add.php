@@ -37,7 +37,20 @@
                         ?>
                     </div>
                 </div>
-               
+                <div class="form-group">
+                    <label for="inputUser" class="col-lg-2 control-label">Service Provider </label>
+                    <div class="col-lg-5">
+                        <select class="form-control" name="fields[service_provider]" id="service_provider" required> 
+                            <option value="">Select Service Provider </option>
+                            <?php $service_provider= q("select * from service_provider");
+                            foreach ($service_provider as $each_category):
+                                ?> <option value="<?php print $each_category['id'] ?>" <?php _cprint($service_provider_id,  $each_category['id'], "selected"); ?> ><?php print $each_category['name'] ?></option>
+                                <?php
+                            endforeach;
+                            ?>
+                        </select>
+                    </div>
+                </div>
                     <div class="form-group  <?php if (!empty($email)): print "hide"; endif; ?>" 
 >
                         <label for="inputUser" class="col-lg-2 control-label">Email</label>

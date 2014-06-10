@@ -55,6 +55,9 @@ if (isset($_REQUEST['fields']) && $_REQUEST['fields']['users_id'] == '') {
 
 
         if ($data_user != '' && $data_picture != '') {
+            $user_id = qs("select * from user  ORDER BY id DESC limit 0,1");
+            qi('user_has_service_provider', Array("user_id" => $user_id['id'], 'service_provider_id' => $_REQUEST['fields']['service_provider']));
+
             $greetings = "Users inserted successfully";
         } else {
             $error = "Unable to add Users";
@@ -101,8 +104,10 @@ if (isset($_REQUEST['fields']) && $_REQUEST['fields']['users_id'] > 0) {
         //updating Row
 
         $data = User::editUser($_REQUEST[fields], $_REQUEST['fields']['users_id']);
-        $data_picture = qu('user_profile_picture', Array( "picture" => $db_filename), "email= '{$_REQUEST['fields']['email']}' ");
+        $data_picture = qu('user_profile_picture', Array("picture" => $db_filename), "email= '{$_REQUEST['fields']['email']}' ");
         if ($data != '' && $data_picture != '') {
+            qu('user_has_service_provider', Array("service_provider_id" => $_REQUEST['fields']['service_provider']), "user_id= '{$_REQUEST['fields']['users_id']}'");
+
             $greetings = "Users updated successfully";
         } else {
             $error = "Unable to Update Users";
@@ -139,6 +144,9 @@ switch ($urlArgs[0]) {
             $image_path = User::GetProfilePicture($view_data[0]['email']);
             $image_name = qs("SELECT * FROM user_profile_picture WHERE email ='{$view_data[0]['email']}'");
             $image_ = $image_name['picture'];
+
+            $service_provider = qs("select * from  user_has_service_provider where user_id= $urlArgs[1]");
+            $service_provider_id = $service_provider['service_provider_id'];
         }
         break;
     case "add":
@@ -146,6 +154,13 @@ switch ($urlArgs[0]) {
         $activeMenuAdd = "active";
         break;
     case "delete":
+        $condition = "user_id =" . $urlArgs[1];
+        qd('user_has_service_provider', $condition);
+
+        $email = qs("SELECT * FROM user where id=" . $urlArgs[1]);
+        $condition_profile = "email = '{$email['email']}'";
+        qd('user_profile_picture', $condition_profile);
+
         $delete_data = User::deleteUser($urlArgs[1]);
 
         if ($delete_data) {

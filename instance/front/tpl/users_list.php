@@ -48,8 +48,7 @@
                                     $service_provider = qs("select * from service_provider where id = '{$service['service_provider_id']}'");
 
                                     print $service_provider['name'];?></td>
-                                <td><?php
-                                print $each_user['address']; ?></td>
+                              
                                 <td><?php print $each_user['address']; ?></td>
                                 <td><?php print $each_user['city']; ?></td>
                                 <td><?php print $each_user['state']; ?></td>

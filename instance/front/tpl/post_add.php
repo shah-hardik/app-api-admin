@@ -31,9 +31,9 @@
                 <div class="form-group">
                     <label for="inputUser" class="col-lg-2 control-label">Select File</label>
                     <div class="col-lg-5">
-                        <input type="file"  name="image" id="image" <?php if (empty($image)): print "required"; endif; ?>>
-                        <input type="hidden" name="fields[image_name]" id="image_name" value="<?php print $image; ?>">
-                        <?php if (!empty($image)):?><div><img src="<?php print _MEDIA_URL . "img/" . $image; ?>" width="100"  /></div><?php print $image; endif;?>
+                        <input type="file"  name="image" id="image" <?php if (empty($image_)): print "required"; endif; ?>>
+                        <input type="hidden" name="fields[image_name]" id="image_name" value="<?php print $image_; ?>">
+                        <?php if (!empty($image_)):?><div><img src="<?php print _MEDIA_URL . "img/" . $image_; ?>" width="100"  /></div><?php print $image_; endif;?>
                     </div>
                 </div>
                 <div class="form-group " >

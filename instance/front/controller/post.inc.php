@@ -86,7 +86,7 @@ switch ($urlArgs[0]) {
             $post_type = $view_data[0]['type'];
             $text = $view_data[0]['text'];
             $media = $view_data[0]['media'];
-            $image = $view_data[0]['thumbnail'];
+            $image_ = $view_data[0]['thumbnail'];
             $latitude = $view_data[0]['location_latitude'];
             $longitude = $view_data[0]['location_longitude'];
             $id_val = $urlArgs[1];

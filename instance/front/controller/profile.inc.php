@@ -10,16 +10,16 @@
  * 
  */
 $urlArgs = _cg("url_vars");
-$addIcon = "plus";
-$addLabel = "Add Profile";
-
-$about = "";
-$address_val = "";
-$city_val = "";
-$state_val = "";
-$zipcode_val = "";
-$location_longitude = "";
-$location_latitude = "";
+//$addIcon = "plus";
+//$addLabel = "Add Profile";
+//
+//$about = "";
+//$address_val = "";
+//$city_val = "";
+//$state_val = "";
+//$zipcode_val = "";
+//$location_longitude = "";
+//$location_latitude = "";
 
 
 if (isset($_REQUEST['fields']) && $_REQUEST['fields']['users_id'] == '') {
@@ -63,10 +63,10 @@ switch ($urlArgs[0]) {
             $id_val = $urlArgs[1];
         }
         break;
-    case "add":
-        $subTpl = "profile_add.php";
-        $activeMenuAdd = "active";
-        break;
+//    case "add":
+//        $subTpl = "profile_add.php";
+//        $activeMenuAdd = "active";
+//        break;
     case "delete":
         $delete_data = Profile::deleteProfile($urlArgs[1]);
 
