@@ -85,6 +85,27 @@ switch ($urlArgs[0]) {
         $activeMenuList = "active";
 }
 
+if (isset($_REQUEST['delete'])) {
+
+
+    $CheckBoxId = $_REQUEST['delete'];
+    $ids = implode(",", $CheckBoxId);
+
+
+    $condition = "user_id IN (" . $ids . ")";
+    $delete_data = qd('user_profile', $condition);
+    unset($_REQUEST['delete']);
+    
+    if ($delete_data) {
+        $greetings = "Profile deleted successfully";
+        $_SESSION['greetings_msg'] = $greetings;
+    } else {
+        $error = "Unable to delete Profile";
+        $_SESSION['error_msg'] = $error;
+    }
+    _R(lr('profile/list'));
+}
+
 $profile = Profile::ProfileList();
 
 $jsInclude = "profile.js.php";

@@ -23,10 +23,16 @@ class Post {
         return q("SELECT * FROM post {$condition}");
     }
 
-
-
     public static function deletePost($id) {
         $condition = "id =" . $id;
+        return qd('post', $condition);
+    }
+
+    public static function deleteSelected($ids) {
+        $ids = implode(",", $ids);
+
+
+        $condition = "id IN (" . $ids . ")";
         return qd('post', $condition);
     }
 

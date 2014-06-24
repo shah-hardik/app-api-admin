@@ -33,6 +33,29 @@ switch ($urlArgs[0]) {
         $activeMenuList = "active";
 }
 
+
+//Grid Delete
+if (isset($_REQUEST['delete'])) {
+
+
+    $CheckBoxId = $_REQUEST['delete'];
+    $ids = implode(",", $CheckBoxId);
+
+
+    $condition = "id IN (" . $ids . ")";
+    $delete_data = qd('post_comment', $condition);
+    unset($_REQUEST['delete']);
+    
+     if ($delete_data) {
+            $greetings = "Post Comment deleted successfully";
+            $_SESSION['greetings_msg'] = $greetings;
+        } else {
+            $error = "Unable to delete Post Comment";
+            $_SESSION['error_msg'] = $error;
+        }
+        _R(lr('post_comment/list'));
+}
+
 $post_comment =q("SELECT * FROM post_comment ");
 
 $jsInclude = "post_comment.js.php";

@@ -79,6 +79,31 @@ switch ($urlArgs[0]) {
         $activeMenuList = "active";
 }
 
+//Grid Delete
+if (isset($_REQUEST['delete'])) {
+
+
+    $CheckBoxId = $_REQUEST['delete'];
+    $ids = implode(",", $CheckBoxId);
+
+
+    $condition = "neighborhood_id IN (".$ids." )" ;
+    qd('neighborhood_has_user', $condition);
+
+    $condition = "id IN (" . $ids . ")";
+    $delete_data = qd('neighborhood', $condition);
+    unset($_REQUEST['delete']);
+
+      if ($delete_data) {
+
+            $greetings = "Neighborhood deleted successfully";
+            $_SESSION['greetings_msg'] = $greetings;
+        } else {
+            $error = "Unable to delete Neighborhood";
+            $_SESSION['error_msg'] = $error;
+        }
+    _R(lr('neighborhood/list'));
+}
 $neighborhood = Neighborhood::neighborhoodList();
 
 $jsInclude = "neighborhood.js.php";

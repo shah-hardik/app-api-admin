@@ -29,6 +29,10 @@ switch ($urlArgs[0]) {
         $activeMenuAdd = "active";
         break;
     case "delete":
+
+        $condition = "service_provider_category_id  = " . $urlArgs[1];
+        qd('service_provider_has_service_provider_category', $condition);
+
         $condition = "id =" . $urlArgs[1];
         $delete_data = qd('service_provider_category', $condition);
 
@@ -47,6 +51,27 @@ switch ($urlArgs[0]) {
         $activeMenuList = "active";
 }
 
+//Grid Delete
+if (isset($_REQUEST['delete'])) {
+
+
+    $CheckBoxId = $_REQUEST['delete'];
+    $ids = implode(",", $CheckBoxId);
+
+    $condition = "service_provider_category_id  IN(" . $ids . ")";
+    qd('service_provider_has_service_provider_category', $condition);
+
+    $condition = "id IN (" . $ids . ")";
+    $delete_data = qd('service_provider_category', $condition);
+    unset($_REQUEST['delete']);
+    if ($delete_data) {
+        $greetings = "Service Provider Category deleted successfully";
+        $_SESSION['greetings_msg'] = $greetings;
+    } else {
+        $error = "Unable to delete Service Provider Category";
+        $_SESSION['error_msg'] = $error;
+    }
+}
 $service_provider_category = q("SELECT * FROM  service_provider_category");
 ;
 

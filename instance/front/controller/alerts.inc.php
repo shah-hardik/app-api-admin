@@ -73,6 +73,28 @@ switch ($urlArgs[0]) {
         $activeMenuList = "active";
 }
 
+//Grid Delete
+if (isset($_REQUEST['delete'])) {
+
+
+    $CheckBoxId = $_REQUEST['delete'];
+    $ids = implode(",", $CheckBoxId);
+
+
+    $condition = "id IN (" . $ids . ")";
+    $delete_data = qd('user_alert', $condition);
+    unset($_REQUEST['delete']);
+
+   if ($delete_data) {
+            $greetings = "Alerts deleted successfully";
+            $_SESSION['greetings_msg'] = $greetings;
+        } else {
+            $error = "Unable to delete Alerts";
+            $_SESSION['error_msg'] = $error;
+        }
+    _R(lr('alerts/list'));
+}
+
 $alerts = Alerts::alertList();
 
 $jsInclude = "alerts.js.php";

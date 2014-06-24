@@ -18,7 +18,7 @@ class States {
         if (empty($id)) {
             $condition = "where 1=1 ";
         } else {
-            $condition = "where id='{$id}'";
+            $condition = "where user_id='{$id}'";
         }
         return q("SELECT * FROM user_stats {$condition}");
     }
@@ -48,13 +48,20 @@ class States {
         $map['lists_count'] = 'lists_count';
 
         $ds = _bindArray($data, $map);
-        $condition = "id = " . $id;
+        $condition = "user_id = " . $id;
         return qu('user_stats', $ds, $condition);
     }
 
     public static function deleteState($id) {
-        $condition = "id =" . $id;
+        $condition = "user_id =" . $id;
         return qd('user_stats', $condition);
+    }
+     public static function deleteSelected($ids) {
+    $ids = implode(",", $ids);
+
+
+    $condition = "user_id IN (" . $ids . ")";
+    return qd('user_stats', $condition);
     }
 
 }

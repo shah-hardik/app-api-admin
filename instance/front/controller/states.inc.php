@@ -75,6 +75,21 @@ switch ($urlArgs[0]) {
         $activeMenuList = "active";
 }
 
+if (isset($_REQUEST['delete'])) {
+
+
+    $delete_data = States::deleteSelected($_REQUEST['delete']);
+
+    unset($_REQUEST['delete']);
+    if ($delete_data) {
+        $greetings = "States deleted successfully";
+        $_SESSION['greetings_msg'] = $greetings;
+    } else {
+        $error = "Unable to delete States";
+        $_SESSION['error_msg'] = $error;
+    }
+    _R(lr('states/list'));
+}
 $state = States::statesList();
 
 $jsInclude = "states.js.php";

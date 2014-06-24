@@ -10,42 +10,50 @@
             $cr = 1;
             if (!empty($state)):
                 ?>
-                <table class="table table-hover" >
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>No of Post</th>
-                            <th>No of  Neighborhoods</th>
-                            <th>No of  Neighbor</th>
-                            <th>No of list</th>
-                            <th>Action</th>
+                <form method="post" class="form-horizontal" role="form" >
 
-                        </tr>
-                    </thead>
-                    <tbody id="">
-                        <?php foreach ($state as $each_data): ?>
+                    <table class="table table-hover" id="tableText" >
+                        <thead>
                             <tr>
-                                <td><?php print $cr; ?></td>
-                                <td><?php
-                                    print $each_data['posts_count'];
-                                    ?></td>
-                                <td><?php print $each_data['neighborhoods_count']; ?></td>
-                                <td><?php print $each_data['neighbors_count']; ?></td>
-                                <td><?php print $each_data['lists_count']; ?></td>
-                               
+                                <th><input type="checkbox" name="checkAll"  id="checkAll"  />Check All <button type="submit" id="" class="label label-danger checkAllSubmit ">Delete</button></th>
 
-                                <td>
-                                    <a href="<?php print _U ?>states/edit/<?php print $each_data['id']; ?>"><i class="glyphicon glyphicon-edit" title="Edit"></i></a>
-                                    <a href="javascript:void(0);" onclick="return DeleteState('states/delete/<?php print $each_data['id']; ?>')"><i class="glyphicon glyphicon-trash" title="Delete"></i></a>
-                                </td>
+                                <th>#</th>
+                                <th>No of Post</th>
+                                <th>No of  Neighborhoods</th>
+                                <th>No of  Neighbor</th>
+                                <th>No of list</th>
+                                <th>Action</th>
+
                             </tr>
-                            <?php $cr++; ?>    
-    <?php endforeach; ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody id="">
+                            <?php foreach ($state as $each_data): ?>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" class="delete" name="delete[]" value="<?php print $each_data['user_id']; ?>"  id="delete[]"/>
+                                    </td>
+                                    <td><?php print $cr; ?></td>
+                                    <td><?php
+                                        print $each_data['posts_count'];
+                                        ?></td>
+                                    <td><?php print $each_data['neighborhoods_count']; ?></td>
+                                    <td><?php print $each_data['neighbors_count']; ?></td>
+                                    <td><?php print $each_data['lists_count']; ?></td>
+
+
+                                    <td>
+                                        <a href="<?php print _U ?>states/edit/<?php print $each_data['user_id']; ?>"><i class="glyphicon glyphicon-edit" title="Edit"></i></a>
+                                        <a href="javascript:void(0);" onclick="return DeleteState('states/delete/<?php print $each_data['user_id']; ?>')"><i class="glyphicon glyphicon-trash" title="Delete"></i></a>
+                                    </td>
+                                </tr>
+                                <?php $cr++; ?>    
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </form>
             <?php else: ?>
                 <div>No States Available</div>
-<?php endif; ?>
+            <?php endif; ?>
         </div>
     </div>
 </div>

@@ -14,7 +14,7 @@ $urlArgs = _cg("url_vars");
 switch ($urlArgs[0]) {
 
     case "delete":
-        $condition = "id =" .$urlArgs[0];
+        $condition = "post_id =" . $urlArgs[0];
 
         $delete_data = qd('post_like', $condition);
 
@@ -33,7 +33,31 @@ switch ($urlArgs[0]) {
         $activeMenuList = "active";
 }
 
-$post_like =q("SELECT * FROM post_like ");
+
+//Grid Delete
+if (isset($_REQUEST['delete'])) {
+
+
+    $CheckBoxId = $_REQUEST['delete'];
+    $ids = implode(",", $CheckBoxId);
+
+
+    $condition = "post_id IN (" . $ids . ")";
+    $delete_data = qd('post_like', $condition);
+    unset($_REQUEST['delete']);
+
+
+    if ($delete_data) {
+        $greetings = "Post Like deleted successfully";
+        $_SESSION['greetings_msg'] = $greetings;
+    } else {
+        $error = "Unable to delete Post Like";
+        $_SESSION['error_msg'] = $error;
+    }
+    _R(lr('post_like/list'));
+}
+
+$post_like = q("SELECT * FROM post_like ");
 
 $jsInclude = "post_like.js.php";
 _cg("page_title", "Post Like");

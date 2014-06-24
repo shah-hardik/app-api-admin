@@ -177,6 +177,36 @@ switch ($urlArgs[0]) {
         $subTpl = "users_list.php";
         $activeMenuList = "active";
 }
+//Grid Delete
+if (isset($_REQUEST['delete'])) {
+
+
+    $CheckBoxId = $_REQUEST['delete'];
+    $ids = implode(",", $CheckBoxId);
+
+
+    $condition = "user_id IN(" . $ids . ")";
+    qd('user_has_service_provider', $condition);
+
+    $email = q("SELECT * FROM user where id IN ($ids)");
+    foreach ($email as $each_data) {
+        $condition_profile = "email = '{$each_data['email']}'";
+        qd('user_profile_picture', $condition_profile);
+    }
+
+    $condition = "id IN (" . $ids . ")";
+    $delete_data = qd('user', $condition);
+    unset($_REQUEST['delete']);
+
+    if ($delete_data) {
+        $greetings = "User deleted successfully";
+        $_SESSION['greetings_msg'] = $greetings;
+    } else {
+        $error = "Unable to delete User";
+        $_SESSION['error_msg'] = $error;
+    }
+    _R(lr('users/list'));
+}
 
 $users = User::UsersList();
 

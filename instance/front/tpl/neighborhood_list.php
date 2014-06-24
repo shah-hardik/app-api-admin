@@ -10,54 +10,62 @@
             $cr = 1;
             if (!empty($neighborhood)):
                 ?>
-                <table class="table table-hover" >
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>User</th>
-                            <th>Location</th>
-                            <th>Block User(Y/N)</th>
-                            <th>Location Latitude</th>
-                            <th>Location Longitude</th>
-                            <th>Action</th>
+                <form method="post" action="neighborhood" class="form-horizontal" role="form" >
 
-                        </tr>
-                    </thead>
-                    <tbody id="">
-                        <?php foreach ($neighborhood as $each_data): ?>
+                    <table class="table table-hover" id="tableText">
+                        <thead>
                             <tr>
-                                <td><?php print $cr; ?></td>
-                                <td><?php print $each_data['name']; ?></td>
+                                <th><input type="checkbox" name="checkAll"  id="checkAll"  />Check All <button type="submit" id="" class="label label-danger checkAllSubmit ">Delete</button></th>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>User</th>
+                                <th>Location</th>
+                                <th>Block User(Y/N)</th>
+                                <th>Location Latitude</th>
+                                <th>Location Longitude</th>
+                                <th>Action</th>
 
-                                <td><?php
-                                    $neighborhood_has_user = qs("SELECT * FROM neighborhood_has_user where neighborhood_id='{$each_data['id']}'");
-                                    $user = qs("SELECT * FROM user where id='{$neighborhood_has_user['user_id']}'");
-                                    print $user['first_name'];
-                                    ?></td>
-                                <td><?php print $each_data['location']; ?></td>
-                                <td><?php
-                                    $neighborhood_blocked_user = qs("SELECT * FROM  neighborhood_blocked_user where neighborhood_id='{$each_data['id']}'");
-                                    $user = qs("SELECT * FROM user where id='{$neighborhood_blocked_user['user_id']}'");
-
-                                    if (empty($user)) {
-                                        print 'No';
-                                    } else {
-                                        print 'YES';
-                                    }
-                                    ?></td>
-
-                                <td><?php print $each_data['location_latitude']; ?></td>
-                                <td><?php print $each_data['location_longitude']; ?></td>
-                                <td>
-                                    <a href="<?php print _U ?>neighborhood/edit/<?php print $each_data['id']; ?>"><i class="glyphicon glyphicon-edit" title="Edit"></i></a>
-                                    <a href="javascript:void(0);" on onclick="return DeleteNeighborhood('neighborhood/delete/<?php print $each_data['id']; ?>')"><i class="glyphicon glyphicon-trash" title="Delete"></i></a>
-                                </td>
                             </tr>
-                            <?php $cr++; ?>    
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody id="">
+                            <?php foreach ($neighborhood as $each_data): ?>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" class="delete" name="delete[]" value="<?php print $each_data['id']; ?>"  id="delete[]"/>
+
+                                    </td>
+                                    <td><?php print $cr; ?></td>
+                                    <td><?php print $each_data['name']; ?></td>
+
+                                    <td><?php
+                                        $neighborhood_has_user = qs("SELECT * FROM neighborhood_has_user where neighborhood_id='{$each_data['id']}'");
+                                        $user = qs("SELECT * FROM user where id='{$neighborhood_has_user['user_id']}'");
+                                        print $user['first_name'];
+                                        ?></td>
+                                    <td><?php print $each_data['location']; ?></td>
+                                    <td><?php
+                                        $neighborhood_blocked_user = qs("SELECT * FROM  neighborhood_blocked_user where neighborhood_id='{$each_data['id']}'");
+                                        $user = qs("SELECT * FROM user where id='{$neighborhood_blocked_user['user_id']}'");
+
+                                        if (empty($user)) {
+                                            print 'No';
+                                        } else {
+                                            print 'YES';
+                                        }
+                                        ?></td>
+
+                                    <td><?php print $each_data['location_latitude']; ?></td>
+                                    <td><?php print $each_data['location_longitude']; ?></td>
+                                    <td>
+                                        <a href="<?php print _U ?>neighborhood/edit/<?php print $each_data['id']; ?>"><i class="glyphicon glyphicon-edit" title="Edit"></i></a>
+                                        <a href="javascript:void(0);" on onclick="return DeleteNeighborhood('neighborhood/delete/<?php print $each_data['id']; ?>')"><i class="glyphicon glyphicon-trash" title="Delete"></i></a>
+                                    </td>
+                                </tr>
+                                <?php $cr++; ?>    
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </form>
             <?php else: ?>
                 <div>No Neighborhood Available</div>
             <?php endif; ?>

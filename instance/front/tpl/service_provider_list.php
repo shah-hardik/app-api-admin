@@ -10,44 +10,51 @@
             $cr = 1;
             if (!empty($service_provider)):
                 ?>
-                <table class="table table-hover" >
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Category</th>
-                            <th>Location Latitude</th>
-                            <th>Location Longitude</th>
-                            <th>Action</th>
+                <form method="post" class="form-horizontal" role="form" >
 
-                        </tr>
-                    </thead>
-                    <tbody id="">
-                        <?php foreach ($service_provider as $each_data): ?>
+                    <table class="table table-hover" id="tableText">
+                        <thead>
                             <tr>
-                                <td><?php print $cr; ?></td>
-                                <td><?php print $each_data['name']; ?></td>
-                                <td><?php
-                                    $service = qs("select * from service_provider_has_service_provider_category where service_provider_id = '{$each_data['id']}'");
-                                    $category = qs("select * from service_provider_category where id = '{$service['service_provider_category_id']}'");
+                                <th><input type="checkbox" name="checkAll"  id="checkAll"  />Check All <button type="submit" id="" class="label label-danger checkAllSubmit ">Delete</button></th>
 
-                                    print $category['name'];
-                                    ?></td>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Location Latitude</th>
+                                <th>Location Longitude</th>
+                                <th>Action</th>
 
-                                <td><?php print $each_data['location_latitude']; ?></td>
-                                <td><?php print $each_data['location_longitude']; ?></td>
-                                <td>
-                                    <a href="<?php print _U ?>service_provider/edit/<?php print $each_data['id']; ?>"><i class="glyphicon glyphicon-edit" title="Edit"></i></a>
-                                    <a href="javascript:void(0);" on onclick="return DeleteServiceProvider('service_provider/delete/<?php print $each_data['id']; ?>')"><i class="glyphicon glyphicon-trash" title="Delete"></i></a>
-                                </td>
                             </tr>
-                            <?php $cr++; ?>    
-    <?php endforeach; ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody id="">
+                            <?php foreach ($service_provider as $each_data): ?>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" class="delete" name="delete[]" value="<?php print $each_data['id']; ?>"  id="delete[]"/>
+                                    </td>
+                                    <td><?php print $cr; ?></td>
+                                    <td><?php print $each_data['name']; ?></td>
+                                    <td><?php
+                                        $service = qs("select * from service_provider_has_service_provider_category where service_provider_id = '{$each_data['id']}'");
+                                        $category = qs("select * from service_provider_category where id = '{$service['service_provider_category_id']}'");
+
+                                        print $category['name'];
+                                        ?></td>
+
+                                    <td><?php print $each_data['location_latitude']; ?></td>
+                                    <td><?php print $each_data['location_longitude']; ?></td>
+                                    <td>
+                                        <a href="<?php print _U ?>service_provider/edit/<?php print $each_data['id']; ?>"><i class="glyphicon glyphicon-edit" title="Edit"></i></a>
+                                        <a href="javascript:void(0);" on onclick="return DeleteServiceProvider('service_provider/delete/<?php print $each_data['id']; ?>')"><i class="glyphicon glyphicon-trash" title="Delete"></i></a>
+                                    </td>
+                                </tr>
+                                <?php $cr++; ?>    
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table></form>
             <?php else: ?>
                 <div>No Service Provider Available</div>
-<?php endif; ?>
+            <?php endif; ?>
         </div>
     </div>
 </div>

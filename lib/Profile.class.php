@@ -17,7 +17,7 @@ class Profile {
         if (empty($id)) {
             $condition = "where 1=1 ";
         } else {
-            $condition = "where id='{$id}'";
+            $condition = "where user_id='{$id}'";
         }
         return q("SELECT * FROM  user_profile {$condition}");
     }
@@ -51,12 +51,12 @@ class Profile {
         $map['location_longitude'] = 'location_longitude';
 
         $ds = _bindArray($data, $map);
-        $condition = "id = " . $id;
+        $condition = "user_id = " . $id;
         return qu('user_profile', $ds, $condition);
     }
 
     public static function deleteProfile($id) {
-        $condition = "id =" . $id;
+        $condition = "user_id =" . $id;
         return qd('user_profile', $condition);
     }
 

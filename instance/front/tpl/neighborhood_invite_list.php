@@ -9,57 +9,67 @@
             $cr = 1;
             if (!empty($neighborhood)):
                 ?>
-                <table class="table table-hover" >
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>User To</th>
-                            <th>User From</th>
-                            <th>Neighborhood User</th>
-                            <th>Invite Status</th>
-                            <th>Action</th>
+                <form method="post" class="form-horizontal" role="form" >
 
-                        </tr>
-                    </thead>
-                    <tbody id="">
-                        <?php foreach ($neighborhood as $each_data): ?>
+                    <table class="table table-hover" id="tableText">
+                        <thead>
                             <tr>
-                                <td><?php print $cr; ?></td>
-                                <td><?php
-                                    $user_to = qs("SELECT * FROM  user where id='{$each_data['user_id_to']}'");
+                                <th><input type="checkbox" name="checkAll"  id="checkAll"  />Check All <button type="submit" id="" class="label label-danger checkAllSubmit ">Delete</button></th>
 
-                                    print $user_to['first_name'];
-                                    ?></td>
-                                <td><?php   $user_from = qs("SELECT * FROM  user where id='{$each_data['user_id_from']}'");
+                                <th>#</th>
+                                <th>User To</th>
+                                <th>User From</th>
+                                <th>Neighborhood User</th>
+                                <th>Invite Status</th>
+                                <th>Action</th>
 
-                                    print $user_from['first_name']; ?></td>
-                                <td><?php
-                                    $neighborhood_name = qs("SELECT * FROM  neighborhood where id='{$each_data['neighborhood_id']}'");
-
-                                    print $neighborhood_name['name'];
-                                    ?></td>
-                                <td><?php
-                                    if ($each_data['invite_status'] == 0) {
-                                        print "Pending";
-                                    } elseif ($each_data['invite_status'] == 1) {
-                                        print "Accept";
-                                    } elseif ($each_data['invite_status'] == 2) {
-                                        print "Decline";
-                                    }
-                                    ?>
-
-                                <td>
-
-                                    <a href="javascript:void(0);" onclick="return DeleteNeighborhoodInvite('neighborhood_invite/delete/<?php print $each_data['id']; ?>')"><i class="glyphicon glyphicon-trash" title="Delete"></i></a>
-                                </td>
                             </tr>
-                            <?php $cr++; ?>    
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody id="">
+                            <?php foreach ($neighborhood as $each_data): ?>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" class="delete" name="delete[]" value="<?php print $each_data['id']; ?>"  id="delete[]"/>
+                                    </td>
+                                    <td><?php print $cr; ?></td>
+                                    <td><?php
+                                        $user_to = qs("SELECT * FROM  user where id='{$each_data['user_id_to']}'");
+
+                                        print $user_to['first_name'];
+                                        ?></td>
+                                    <td><?php
+                                        $user_from = qs("SELECT * FROM  user where id='{$each_data['user_id_from']}'");
+
+                                        print $user_from['first_name'];
+                                        ?></td>
+                                    <td><?php
+                                        $neighborhood_name = qs("SELECT * FROM  neighborhood where id='{$each_data['neighborhood_id']}'");
+
+                                        print $neighborhood_name['name'];
+                                        ?></td>
+                                    <td><?php
+                                        if ($each_data['invite_status'] == 0) {
+                                            print "Pending";
+                                        } elseif ($each_data['invite_status'] == 1) {
+                                            print "Accept";
+                                        } elseif ($each_data['invite_status'] == 2) {
+                                            print "Decline";
+                                        }
+                                        ?>
+
+                                    <td>
+
+                                        <a href="javascript:void(0);" onclick="return DeleteNeighborhoodInvite('neighborhood_invite/delete/<?php print $each_data['id']; ?>')"><i class="glyphicon glyphicon-trash" title="Delete"></i></a>
+                                    </td>
+                                </tr>
+                                <?php $cr++; ?>    
+    <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </form>
             <?php else: ?>
                 <div>No Neighborhood Invite Available</div>
-            <?php endif; ?>
+<?php endif; ?>
         </div>
     </div>
 </div>

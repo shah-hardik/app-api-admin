@@ -110,6 +110,22 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="deleteModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="alert alert-error" style="">
+                            Are you sure you want to take this action ?
+                        </div>
+                        </br>
+                        <div style="text-align:right;">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                            <button type="button" class="btn btn-primary"  onclick="deleteAll()">Yes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
 

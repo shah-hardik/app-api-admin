@@ -27,5 +27,6 @@ define('DB_PASSWORD', '');
 define('DB_UNAME', 'root');
 define('DB_NAME', 'mydb');
 
+
 include "loader.php";
 ?>

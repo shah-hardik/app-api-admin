@@ -13,7 +13,10 @@
         l(_U + delUrl);
         $("#myModal").modal("hide");
     }
+    function deleteAll() {
+                $("#deleteModal").modal("hide");
 
+    }
     function l(url) {
         location.href = url;
     }

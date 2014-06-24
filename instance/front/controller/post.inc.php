@@ -53,11 +53,10 @@ if (isset($_REQUEST['fields']) && $_REQUEST['fields']['users_id'] > 0) {
     if (empty($filename)) {
         $db_filename = $_REQUEST['fields']['image_name'];
     } else {
-        
-            $db_filename = mt_rand(0, 999999) . $_FILES['image']['name'];
-            $destination = _PATH . "instance/front/media/img/" . $db_filename;
-            $image = move_uploaded_file($filename, $destination);
-        
+
+        $db_filename = mt_rand(0, 999999) . $_FILES['image']['name'];
+        $destination = _PATH . "instance/front/media/img/" . $db_filename;
+        $image = move_uploaded_file($filename, $destination);
     }
     $data = qu('post', Array("user_id" => $_REQUEST['fields']['user'],
         "type" => $_REQUEST['fields']['post_type'],
@@ -113,7 +112,22 @@ switch ($urlArgs[0]) {
         $subTpl = "post_list.php";
         $activeMenuList = "active";
 }
+if (isset($_REQUEST['delete'])) {
 
+
+    $delete_data = Post::deleteSelected($_REQUEST['delete']);
+
+    unset($_REQUEST['delete']);
+
+    if ($delete_data) {
+        $greetings = "Post deleted successfully";
+        $_SESSION['greetings_msg'] = $greetings;
+    } else {
+        $error = "Unable to delete Post";
+        $_SESSION['error_msg'] = $error;
+    }
+    _R(lr('post/list'));
+}
 $post = Post::postList();
 
 $jsInclude = "post.js.php";
